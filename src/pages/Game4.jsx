@@ -7,7 +7,8 @@ import DeviceOrientation, { Orientation } from 'react-screen-orientation'
 import Lottie from 'react-lottie';
 import animationData from '../assets/orientation.json'
 import WORDS from '../data/DataKata';
-import { ChevronLeftIcon, HomeIcon } from '@heroicons/react/solid'
+import { ChevronLeftIcon, HomeIcon, PlayIcon } from '@heroicons/react/solid'
+import soal1 from '../assets/Bulutangkis.mp3'
 import { Link } from 'react-router-dom';
 
 // lottie option
@@ -46,13 +47,11 @@ const move = (source, destination, droppableSource, droppableDestination) => {
     return result;
 };
 
-class Game3 extends Component {
+class Game4 extends Component {
 
     state = {
         data: {
-            'Voli': [],
-            'Renang': [],
-            'TenisMeja': []
+            'Bulutangkis': [],
         },
         modal: false,
         score: 0
@@ -131,8 +130,12 @@ class Game3 extends Component {
         }))
     }
 
+    playAudio() {
+        new Audio(soal1).play()
+    }
+
     async checkAnswer(state) {
-        let arr = await Object.keys(state).filter((item, i) => state[item][0].gambar === this.digitsBeGone(item))
+        let arr = await Object.keys(state).filter((item, i) => state[item][0].kata === this.digitsBeGone(item))
 
         if (arr > 0) {
             this.openModal(arr.length)
@@ -159,71 +162,70 @@ class Game3 extends Component {
                                     </button>
                                 </Link>
                             </div>
-                            <h1 className='text-white mb-2'>1. Lengkapi kotak dibawah dengan dengan gambar yang sesuai!</h1>
-                            <div as='Content' className='flex justify-center'>
-                                {Object.keys(this.state.data).map((list, i) => (
-                                <div className='w-31% flex flex-col items-center m-2'>
-                                    {/* <p className='text-white font-medium'>{list}</p> */}
-                                    <img className='w-1/2 h-auto select-none p-2 mb-2 rounded' src={`/ilustrasi/${list}.png`} alt="" /> 
-                                    <Droppable key={list} droppableId={list}>
-                                        {(provided, snapshot) => (
-                                            <div as='Container' className={`w-full min-h-custom-min-height m-2 bg-white p-2 rounded flex justify-center border-2 border-dashed border-black`}
-                                                ref={provided.innerRef}>
-                                                {this.state.data[list].length
-                                                    ? this.state.data[list].map(
-                                                        (item, index) => (
-                                                            <Draggable
-                                                                key={item.id}
-                                                                draggableId={item.id}
-                                                                index={index}>
-                                                                {(provided, snapshot) => (
-                                                                    <img ref={provided.innerRef}
-                                                                        {...provided.draggableProps}
-                                                                        {...provided.dragHandleProps}
-                                                                        src={item.content}
-                                                                        alt={item.gambar}
-                                                                        className='w-1/2 h-auto select-none p-2 mb-2 rounded'
-                                                                    />
-                                                                )}
-                                                            </Draggable>
-                                                        )) : !provided.placeholder && (
-                                                            ''
-                                                        )}
-                                                {provided.placeholder}
-                                            </div>
-                                        )}
-                                    </Droppable>
+                            <h1 className='text-white'>2. Dengarkan audio berikut lalu cocokan jawabanya</h1>
+                            <button onClick={this.playAudio}><PlayIcon className='w-10 h-10 text-white' /></button>
+                            <div className='flex'>
+                                <div as='Content' className='w-70% flex justify-center'>
+                                    {Object.keys(this.state.data).map((list, i) => (
+                                        <Droppable key={list} droppableId={list}>
+                                            {(provided, snapshot) => (
+                                                <div as='Container' className={`w-full min-h-custom-min-height max-h-60 m-2 bg-white p-2 rounded flex justify-center border-2 border-dashed border-black`}
+                                                    ref={provided.innerRef}>
+                                                    {this.state.data[list].length
+                                                        ? this.state.data[list].map(
+                                                            (item, index) => (
+                                                                <Draggable
+                                                                    key={item.id}
+                                                                    draggableId={item.id}
+                                                                    index={index}>
+                                                                    {(provided, snapshot) => (
+                                                                        <img ref={provided.innerRef}
+                                                                            {...provided.draggableProps}
+                                                                            {...provided.dragHandleProps}
+                                                                            src={item.content}
+                                                                            alt={item.kata}
+                                                                            className='w-30% h-auto select-none p-2 mb-2 rounded'
+                                                                        />
+                                                                    )}
+                                                                </Draggable>
+                                                            )) : !provided.placeholder && (
+                                                                ''
+                                                            )}
+                                                    {provided.placeholder}
+                                                </div>
+                                            )}
+                                        </Droppable>
+                                    ))}
                                 </div>
-                                ))}
+                                <Droppable droppableId="WORDS" isDropDisabled={true}>
+                                    {(provided, snapshot) => (
+                                        <div as='bank' className={`w-30% bg-custom-text p-2 my-4 rounded shadow-custom-shadow-gray flex flex-wrap`}
+                                            ref={provided.innerRef}>
+                                            {WORDS.map((item, index) => (
+                                                <Draggable
+                                                    key={item.id}
+                                                    draggableId={item.id}
+                                                    index={index}>
+                                                    {(provided, snapshot) => (
+                                                        <Fragment>
+                                                            <img ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                                {...provided.dragHandleProps}
+                                                                src={item.content}
+                                                                alt={item.kata}
+                                                                className='w-30% h-auto select-none p-2 mb-2 rounded'
+                                                            />
+                                                            {snapshot.isDragging && (
+                                                                <img src={item.content} alt={item.kata} className='clone2 !transform-none' />
+                                                            )}
+                                                        </Fragment>
+                                                    )}
+                                                </Draggable>
+                                            ))}
+                                        </div>
+                                    )}
+                                </Droppable>
                             </div>
-                            <Droppable droppableId="WORDS" isDropDisabled={true}>
-                                {(provided, snapshot) => (
-                                    <div as='bank' className={`w-full bg-custom-text p-2 my-4 rounded shadow-custom-shadow-gray flex justify-around`}
-                                        ref={provided.innerRef}>
-                                        {WORDS.map((item, index) => (
-                                            <Draggable
-                                                key={item.id}
-                                                draggableId={item.id}
-                                                index={index}>
-                                                {(provided, snapshot) => (
-                                                    <Fragment>
-                                                        <img ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            src={item.content}
-                                                            alt={item.gambar}
-                                                            className='w-15% h-auto select-none p-2 mb-2 rounded'
-                                                        />
-                                                        {snapshot.isDragging && (
-                                                            <img src={item.content} alt={item.gambar} className='clone !transform-none' />
-                                                        )}
-                                                    </Fragment>
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                    </div>
-                                )}
-                            </Droppable>
                             <div className='w-full flex mt-4'>
                                 <button className='bg-custom-coral text-white px-3 py-1 rounded-md shadow-click' onClick={() => this.checkAnswer(this.state.data)}>
                                     Check
@@ -305,15 +307,14 @@ class Game3 extends Component {
                             </button>
                         </Link>
                     </div>
-                    <h1 className='text-white'>1. Lengkapi kotak dibawah dengan dengan gambar yang sesuai!</h1>
-                    <div as='Content' className='flex justify-center'>
-                        {Object.keys(this.state.data).map((list, i) => (
-                            <div className='w-31% flex flex-col items-center m-2'>
-                                {/* <p className='text-white font-medium'>{list}</p> */}
-                                <img className='w-1/2 h-auto select-none p-2 mb-2 rounded' src={`/ilustrasi/${list}.png`} alt="" />
+                    <h1 className='text-white'>2. Dengarkan audio berikut lalu cocokan jawabanya</h1>
+                    <button onClick={this.playAudio}><PlayIcon className='w-10 h-10 text-white' /></button>
+                    <div className='flex'>
+                        <div as='Content' className='w-70% flex justify-center'>
+                            {Object.keys(this.state.data).map((list, i) => (
                                 <Droppable key={list} droppableId={list}>
                                     {(provided, snapshot) => (
-                                        <div as='Container' className={`w-full min-h-custom-min-height m-2 bg-white p-2 rounded flex justify-center border-2 border-dashed border-black`}
+                                        <div as='Container' className={`w-full min-h-custom-min-height max-h-60 m-2 bg-white p-2 rounded flex justify-center border-2 border-dashed border-black`}
                                             ref={provided.innerRef}>
                                             {this.state.data[list].length
                                                 ? this.state.data[list].map(
@@ -327,8 +328,8 @@ class Game3 extends Component {
                                                                     {...provided.draggableProps}
                                                                     {...provided.dragHandleProps}
                                                                     src={item.content}
-                                                                    alt={item.gambar}
-                                                                    className='w-1/2 h-auto select-none p-2 mb-2 rounded'
+                                                                    alt={item.kata}
+                                                                    className='w-30% h-auto select-none p-2 mb-2 rounded'
                                                                 />
                                                             )}
                                                         </Draggable>
@@ -339,37 +340,37 @@ class Game3 extends Component {
                                         </div>
                                     )}
                                 </Droppable>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
+                        <Droppable droppableId="WORDS" isDropDisabled={true}>
+                            {(provided, snapshot) => (
+                                <div as='bank' className={`w-30% bg-custom-text p-2 my-4 rounded shadow-custom-shadow-gray flex flex-wrap`}
+                                    ref={provided.innerRef}>
+                                    {WORDS.map((item, index) => (
+                                        <Draggable
+                                            key={item.id}
+                                            draggableId={item.id}
+                                            index={index}>
+                                            {(provided, snapshot) => (
+                                                <Fragment>
+                                                    <img ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        src={item.content}
+                                                        alt={item.kata}
+                                                        className='w-30% h-auto select-none p-2 mb-2 rounded'
+                                                    />
+                                                    {snapshot.isDragging && (
+                                                        <img src={item.content} alt={item.kata} className='clone2 !transform-none' />
+                                                    )}
+                                                </Fragment>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                </div>
+                            )}
+                        </Droppable>
                     </div>
-                    <Droppable droppableId="WORDS" isDropDisabled={true}>
-                        {(provided, snapshot) => (
-                            <div as='bank' className={`w-full bg-custom-text p-2 my-4 rounded shadow-custom-shadow-gray flex justify-around`}
-                                ref={provided.innerRef}>
-                                {WORDS.map((item, index) => (
-                                    <Draggable
-                                        key={item.id}
-                                        draggableId={item.id}
-                                        index={index}>
-                                        {(provided, snapshot) => (
-                                            <Fragment>
-                                                <img ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                    src={item.content}
-                                                    alt={item.gambar}
-                                                    className='w-15% h-auto select-none p-2 mb-2 rounded'
-                                                />
-                                                {snapshot.isDragging && (
-                                                    <img src={item.content} alt={item.gambar} className='clone !transform-none' />
-                                                )}
-                                            </Fragment>
-                                        )}
-                                    </Draggable>
-                                ))}
-                            </div>
-                        )}
-                    </Droppable>
                     <div className='w-full flex mt-4'>
                         <button className='bg-custom-coral text-white px-3 py-1 rounded-md shadow-click' onClick={() => this.checkAnswer(this.state.data)}>
                             Check
@@ -432,4 +433,4 @@ class Game3 extends Component {
     }
 }
 
-export default Game3;
+export default Game4;

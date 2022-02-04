@@ -51,8 +51,8 @@ class Game1 extends Component {
     state = {
         data: {
             'Voli': [],
-            'Renang': [],
-            'Tenis Meja': []
+            'TenisMeja': [],
+            'Renang': []
         },
         modal: false,
         score: 0
@@ -162,9 +162,10 @@ class Game1 extends Component {
                             <h1 className='text-white mb-2'>1. Lengkapi kotak dibawah dengan dengan gambar yang sesuai!</h1>
                             <div as='Content' className='flex justify-center'>
                                 {Object.keys(this.state.data).map((list, i) => (
+                                <div className='w-31% flex flex-col items-center m-2'>
                                     <Droppable key={list} droppableId={list}>
                                         {(provided, snapshot) => (
-                                            <div as='Container' className={`w-31% min-h-custom-min-height m-2 bg-white p-2 rounded flex justify-center border-2 border-dashed border-black`}
+                                            <div as='Container' className={`w-full min-h-custom-min-height m-2 bg-white p-2 rounded flex justify-center border-2 border-dashed border-black`}
                                                 ref={provided.innerRef}>
                                                 {this.state.data[list].length
                                                     ? this.state.data[list].map(
@@ -190,6 +191,9 @@ class Game1 extends Component {
                                             </div>
                                         )}
                                     </Droppable>
+                                    {/* <h1 className='max-w-fit text-sm font-medium text-2xl bg-white p-2 mb-2 rounded border-2 border-black'>{list}</h1> */}
+                                    <img className="h-1/2 w-1/2" src={`/mudrofat/${list}.png`} alt="" />
+                                </div>
                                 ))}
                             </div>
                             <Droppable droppableId="IMAGES" isDropDisabled={true}>
@@ -333,8 +337,8 @@ class Game1 extends Component {
                                         </div>
                                     )}
                                 </Droppable>
-                                {/* <p className='text-white font-medium'>{list}</p> */}
-                                {/* <img src={`https://images2.imgbox.com/31/f9/${list}.png`} alt="" /> */}
+                                {/* <h1 className='max-w-fit text-sm font-medium text-4xl bg-white p-6 mb-2 rounded border-2 border-black'>{list}</h1> */}
+                                <img className="h-1/2 w-1/2" src={`/mudrofat/${list}.png`} alt="" />
                             </div>
                         ))}
                     </div>

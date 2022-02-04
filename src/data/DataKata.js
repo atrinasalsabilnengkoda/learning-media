@@ -9,7 +9,7 @@ const WORDS = [
     {
         id: v4(),
         content: 'https://images2.imgbox.com/36/51/7QahjW1g_o.png',
-        kata: 'Sepak Bola'
+        kata: 'SepakBola'
     },
     {
         id: v4(),
@@ -29,7 +29,7 @@ const WORDS = [
     {
         id: v4(),
         content: 'https://images2.imgbox.com/20/c6/qS2Q3FOR_o.png',
-        kata: 'Tenis Meja'
+        kata: 'TenisMeja'
     }
 ];
 

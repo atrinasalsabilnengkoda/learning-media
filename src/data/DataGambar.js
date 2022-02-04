@@ -9,7 +9,7 @@ const IMAGES = [
     {
         id: v4(),
         content: 'https://thumbs2.imgbox.com/1b/17/ITZujpgp_t.png',
-        gambar: 'Sepak Bola'
+        gambar: 'SepakBola'
     },
     {
         id: v4(),
@@ -29,7 +29,7 @@ const IMAGES = [
     {
         id: v4(),
         content: 'https://images2.imgbox.com/56/3a/I34mcXWs_o.png',
-        gambar: 'Tenis Meja'
+        gambar: 'TenisMeja'
     }
 ];
 
