@@ -6,7 +6,7 @@ import { isMobile } from 'react-device-detect';
 import DeviceOrientation, { Orientation } from 'react-screen-orientation'
 import Lottie from 'react-lottie';
 import animationData from '../assets/orientation.json'
-import IMAGES from '../data/DataGambar';
+import WORDS from '../data/DataKata';
 import { ChevronLeftIcon, HomeIcon } from '@heroicons/react/solid'
 import { Link } from 'react-router-dom';
 
@@ -46,7 +46,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
     return result;
 };
 
-class Game1 extends Component {
+class Game3 extends Component {
 
     state = {
         data: {
@@ -77,14 +77,14 @@ class Game1 extends Component {
         switch (source.droppableId) {
             case destination.droppableId:
                 break;
-            case 'IMAGES':
+            case 'WORDS':
                 console.log('copy');
                 this.setState(prev => ({
                     ...prev,
                     data: {
                         ...prev.data,
                         [destination.droppableId]: copy(
-                            IMAGES,
+                            WORDS,
                             this.state.data[destination.droppableId],
                             source,
                             destination
@@ -132,7 +132,7 @@ class Game1 extends Component {
     }
 
     async checkAnswer(state) {
-        let arr = await Object.keys(state).filter((item, i) => state[item][0].gambar === this.digitsBeGone(item))
+        let arr = await Object.keys(state).filter((item, i) => state[item][0].kata === this.digitsBeGone(item))
 
         if (arr > 0) {
             this.openModal(arr.length)
@@ -178,7 +178,7 @@ class Game1 extends Component {
                                                                         {...provided.draggableProps}
                                                                         {...provided.dragHandleProps}
                                                                         src={item.content}
-                                                                        alt={item.gambar}
+                                                                        alt={item.kata}
                                                                         className='w-1/2 h-auto select-none p-2 mb-2 rounded'
                                                                     />
                                                                 )}
@@ -192,11 +192,11 @@ class Game1 extends Component {
                                     </Droppable>
                                 ))}
                             </div>
-                            <Droppable droppableId="IMAGES" isDropDisabled={true}>
+                            <Droppable droppableId="WORDS" isDropDisabled={true}>
                                 {(provided, snapshot) => (
                                     <div as='bank' className={`w-full bg-custom-text p-2 my-4 rounded shadow-custom-shadow-gray flex justify-around`}
                                         ref={provided.innerRef}>
-                                        {IMAGES.map((item, index) => (
+                                        {WORDS.map((item, index) => (
                                             <Draggable
                                                 key={item.id}
                                                 draggableId={item.id}
@@ -207,11 +207,11 @@ class Game1 extends Component {
                                                             {...provided.draggableProps}
                                                             {...provided.dragHandleProps}
                                                             src={item.content}
-                                                            alt={item.gambar}
+                                                            alt={item.kata}
                                                             className='w-15% h-auto select-none p-2 mb-2 rounded'
                                                         />
                                                         {snapshot.isDragging && (
-                                                            <img src={item.content} alt={item.gambar} className='clone !transform-none' />
+                                                            <img src={item.content} alt={item.kata} className='clone !transform-none' />
                                                         )}
                                                     </Fragment>
                                                 )}
@@ -266,7 +266,7 @@ class Game1 extends Component {
                                                 <Dialog.Title as="h3" className="text-lg font-custom-font font-medium leading-6 text-custom-text text-center">
                                                     Score Game
                                                 </Dialog.Title>
-                                                <div className="mt-4 flex justify-center IMAGES-center">
+                                                <div className="mt-4 flex justify-center WORDS-center">
                                                     <h2 className='text-custom-text text-6xl p-4 bg-custom-dark rounded-full'>{(~~(100 / Object.keys(this.state.data).length) * this.state.score)}</h2>
                                                 </div>
                                             </div>
@@ -279,7 +279,7 @@ class Game1 extends Component {
                     </DragDropContext >
                 </Orientation>
                 <Orientation orientation='portrait' alwaysRender={false}>
-                    <div className='bg-violet-500 min-h-screen px-4 md:px-8 xl:px-28 pt-4 flex flex-col justify-center IMAGES-center'>
+                    <div className='bg-violet-500 min-h-screen px-4 md:px-8 xl:px-28 pt-4 flex flex-col justify-center WORDS-center'>
                         <Lottie options={defaultOptions} />
                         <h1 className='text-white font-semibold text-lg'>Tolong Putar Device anda</h1>
                     </div>
@@ -320,7 +320,7 @@ class Game1 extends Component {
                                                                 {...provided.draggableProps}
                                                                 {...provided.dragHandleProps}
                                                                 src={item.content}
-                                                                alt={item.gambar}
+                                                                alt={item.kata}
                                                                 className='w-1/2 h-auto select-none p-2 mb-2 rounded'
                                                             />
                                                         )}
@@ -334,11 +334,11 @@ class Game1 extends Component {
                             </Droppable>
                         ))}
                     </div>
-                    <Droppable droppableId="IMAGES" isDropDisabled={true}>
+                    <Droppable droppableId="WORDS" isDropDisabled={true}>
                         {(provided, snapshot) => (
                             <div as='bank' className={`w-full bg-custom-text p-2 my-4 rounded shadow-custom-shadow-gray flex justify-around`}
                                 ref={provided.innerRef}>
-                                {IMAGES.map((item, index) => (
+                                {WORDS.map((item, index) => (
                                     <Draggable
                                         key={item.id}
                                         draggableId={item.id}
@@ -349,11 +349,11 @@ class Game1 extends Component {
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                     src={item.content}
-                                                    alt={item.gambar}
+                                                    alt={item.kata}
                                                     className='w-15% h-auto select-none p-2 mb-2 rounded'
                                                 />
                                                 {snapshot.isDragging && (
-                                                    <img src={item.content} alt={item.gambar} className='clone !transform-none' />
+                                                    <img src={item.content} alt={item.kata} className='clone !transform-none' />
                                                 )}
                                             </Fragment>
                                         )}
@@ -407,7 +407,7 @@ class Game1 extends Component {
                                         <Dialog.Title as="h3" className="text-lg font-custom-font font-medium leading-6 text-white text-center">
                                             Score Game
                                         </Dialog.Title>
-                                        <div className="mt-4 flex justify-between IMAGES-center">
+                                        <div className="mt-4 flex justify-between WORDS-center">
                                             <img src="/ilustrasi_modal1.svg" alt="icon" />
                                             <h2 className='text-white text-6xl p-4 bg-custom-dark rounded-full'>{(~~(100 / Object.keys(this.state.data).length) * this.state.score)}</h2>
                                             <img src="/ilustrasi_modal2.svg" alt="icon" />
@@ -424,4 +424,4 @@ class Game1 extends Component {
     }
 }
 
-export default Game1;
+export default Game3;

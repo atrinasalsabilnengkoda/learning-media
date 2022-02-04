@@ -4,15 +4,15 @@ const Soal = [
         data: [
             {
                 id: 1,
-                name: 'Ba',
+                name: 'Voli',
             },
             {
                 id: 2,
-                name: 'Ta',
+                name: 'Renang',
             },
             {
                 id: 3,
-                name: 'Ta',
+                name: 'Tenis Meja',
             }
         ]
     },
@@ -21,15 +21,15 @@ const Soal = [
         data: [
             {
                 id: 1,
-                name: 'Alif',
+                name: 'Tenis Meja',
             },
             {
                 id: 2,
-                name: 'Ta',
+                name: 'Bulutangkis',
             },
             {
                 id: 3,
-                name: 'Ta',
+                name: 'Sepak Bola',
             }
         ]
     },
@@ -38,15 +38,15 @@ const Soal = [
         data: [
             {
                 id: 1,
-                name: 'Alif',
+                name: 'Sepak Bola',
             },
             {
                 id: 2,
-                name: 'Alif',
+                name: 'Basket',
             },
             {
                 id: 3,
-                name: 'Ba',
+                name: 'Voli',
             }   
         ]
     },
@@ -55,15 +55,15 @@ const Soal = [
         data: [
             {
                 id: 1,
-                name: 'Ba',
+                name: 'Basket',
             },
             {
                 id: 2,
-                name: 'Alif',
+                name: 'Voli',
             },
             {
                 id: 3,
-                name: 'Ba',
+                name: 'Renang',
             }   
         ]
     },
@@ -72,15 +72,15 @@ const Soal = [
         data: [
             {
                 id: 1,
-                name: 'Ba',
+                name: 'Bulutangkis',
             },
             {
                 id: 2,
-                name: 'Ta',
+                name: 'Basket',
             },
             {
                 id: 3,
-                name: 'Alif',
+                name: 'Sepak Bola',
             }   
         ]
     },
