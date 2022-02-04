@@ -28,32 +28,34 @@ export default function Tugas() {
                 </button>
             </div>
 
+
             <div className='w-90% bg-white mt-4 p-4 rounded-lg'>
                 <p className='max-w-fit text-white text-sm font-medium bg-custom-blue p-2 mb-4 rounded'>Kode : AADC</p>
 
-                <div className='flex items-center flex-wrap md:flex-row'>
-                    <button as='card' className='flex items-center w-full p-4 mb-4 bg-custom-coral rounded-md shadow-click md:w-48% md:mx-1% lg:w-31% lg:mx-1%' onClick={() => navigate('/game1')}>
+                {/* Card continer */}
+                <div className=' w-full flex flex-wrap'>
+                    <button as='card' className='flex items-center w-full p-4 mb-4 bg-custom-coral rounded-md shadow-click md:w-48% md:mx-1% ' onClick={() => navigate('/game1')}>
                         <img src="/ilustrasi_buku.svg" alt="buku" />
                         <div className='flex flex-col ml-4 text-left'>
                             <h2 className='text-white font-custom-font font-medium text-lg'>1-Membaca 01</h2>
                             <p className='text-white font-custom-font text-xs mt-2'>Game ini akan mengajarkan kamu mencocokan kata dalam bahasa Arab dengan gambar yang sesuai melalui puzzle</p>
                         </div>
                     </button>
-                    <button as='card' className='flex items-center w-full p-4 mb-4 bg-custom-coral rounded-md shadow-click md:w-48% md:mx-1% lg:w-31% lg:mx-1%' onClick={() => navigate('/game3')}>
+                    <button as='card' className='flex items-center w-full p-4 mb-4 bg-custom-coral rounded-md shadow-click md:w-48% md:mx-1% ' onClick={() => navigate('/game3')}>
                         <img src="/ilustrasi_buku.svg" alt="buku" />
                         <div className='flex flex-col ml-4 text-left'>
                             <h2 className='text-white font-custom-font font-medium text-lg'>2-Membaca 02</h2>
                             <p className='text-white font-custom-font text-xs mt-2'>Game ini akan mengajarkan kamu mencocokan gambar dengan kata dalam bahasa Arab yang sesuai melalui puzzle</p>
                         </div>
                     </button>
-                    <button as='card' className='flex items-center w-full p-4 mb-4 bg-custom-coral rounded-md shadow-click md:w-48% md:mx-1% lg:w-31% lg:mx-1%' onClick={() => navigate('/game2')}>
+                    <button as='card' className='flex items-center w-full p-4 mb-4 bg-custom-coral rounded-md shadow-click md:w-48% md:mx-1% ' onClick={() => navigate('/game2')}>
                         <img src="/ilustrasi_buku.svg" alt="buku" />
                         <div className='flex flex-col ml-4 text-left'>
                             <h2 className='text-white font-custom-font font-medium text-lg'>3-Mendengar 01</h2>
                             <p className='text-white font-custom-font text-xs mt-2'>Game ini akan mengajarkan kamu mencocokan kata dalam bahasa Arab melalui puzzle</p>
                         </div>
                     </button>
-                    <button as='card' className='flex items-center w-full p-4 mb-4 bg-custom-coral rounded-md shadow-click md:w-48% md:mx-1% lg:w-31% lg:mx-1%' onClick={() => navigate('/game2')}>
+                    <button as='card' className='flex items-center w-full p-4 mb-4 bg-custom-coral rounded-md shadow-click md:w-48% md:mx-1% ' onClick={() => navigate('/game2')}>
                         <img src="/ilustrasi_buku.svg" alt="buku" />
                         <div className='flex flex-col ml-4 text-left'>
                             <h2 className='text-white font-custom-font font-medium text-lg'>3-Mendengar 01</h2>

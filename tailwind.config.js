@@ -13,6 +13,9 @@ module.exports = {
         'notclick': '0 4px #e5e5e5',
         'click': '0 4px #E45D2C',
       },
+      margin: {
+        '1%': '1%'
+      },
       width: {
         '15%': '15%',
         '48%': '48%',
