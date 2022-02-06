@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home';
 import Tugas from './pages/Tugas';
+import Toko from './pages/Toko';
+import Profil from './pages/Profil';
 import Game1 from './pages/Game1';
 import Game2 from './pages/Game2';
 import Game3 from './pages/Game3';
@@ -13,6 +15,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/tugas' element={<Tugas />} />
+          <Route path='/toko' element={<Toko />} />
+          <Route path='/profil' element={<Profil />} />
           <Route path='/game1' element={<Game1 />} />
           <Route path='/game2' element={<Game2 />} />
           <Route path='/game3' element={<Game3 />} />

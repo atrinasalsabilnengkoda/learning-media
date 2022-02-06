@@ -191,7 +191,7 @@ class Game1 extends Component {
                                             </div>
                                         )}
                                     </Droppable>
-                                    {/* <h1 className='max-w-fit text-sm font-medium text-2xl bg-white p-2 mb-2 rounded border-2 border-black'>{list}</h1> */}
+                                    {/* <h1 className='max-w-fit font-medium text-2xl bg-white p-2 mb-2 rounded border-2 border-black'>{list}</h1> */}
                                     <img className="h-1/2 w-1/2" src={`/mudrofat/${list}.png`} alt="" />
                                 </div>
                                 ))}
