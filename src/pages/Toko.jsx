@@ -33,8 +33,8 @@ export default function Toko() {
                 {/* Card continer */}
                 <div className='w-full flex flex-wrap'>
                     <div className='flex items-center sm:w-50% md:w-full p-4 mt-4 mb-4 bg-custom-coral rounded-md shadow-click sm:mx-1% md:mx-2%'>
-                        <div className='sm:w-12 md:w-24 sm:mr-4 md:mr-5 sm:ml-0 md:ml-5' >
-                            <img src="/icon_tugas.png" alt="icon" />
+                        <div className='w-12 sm:mr-4 md:mr-5 sm:ml-0 md:ml-5' >
+                            <img src="https://images2.imgbox.com/75/07/l6Ul6J0S_o.png" alt="icon" />
                         </div>
                         <div className='w-2/5 flex flex-col text-left'>
                             <h1 className='text-white font-custom-font font-bold md:text-xl sm:text-xs'>Permen</h1>
@@ -48,8 +48,8 @@ export default function Toko() {
                         </div>
                     </div>
                     <div className='flex items-center sm:w-50% md:w-full p-4 mt-4 mb-4 bg-custom-coral rounded-md shadow-click sm:mx-1% md:mx-2%'>
-                        <div className='sm:w-12 md:w-24 sm:mr-4 md:mr-5 sm:ml-0 md:ml-5' >
-                            <img src="/icon_tugas.png" alt="icon" />
+                        <div className='w-12 sm:mr-4 md:mr-5 sm:ml-0 md:ml-5' >
+                            <img src="https://images2.imgbox.com/10/0e/GuzybGRB_o.png" alt="icon" />
                         </div>
                         <div className='w-2/5 flex flex-col text-left'>
                             <h1 className='text-white font-custom-font font-bold md:text-xl sm:text-xs'>Coklat</h1>
@@ -63,8 +63,8 @@ export default function Toko() {
                         </div>
                     </div>
                     <div className='flex items-center sm:w-50% md:w-full p-4 mt-4 mb-4 bg-custom-coral rounded-md shadow-click md:mx-2%'>
-                        <div  className='sm:w-12 md:w-24 sm:mr-4 md:mr-5 sm:ml-0 md:ml-5' >
-                            <img src="/icon_tugas.png" alt="icon" />
+                        <div  className='w-12 sm:mr-4 md:mr-5 sm:ml-0 md:ml-5' >
+                            <img src="https://images2.imgbox.com/35/33/suQi5xHy_o.png" alt="icon" />
                         </div>
                         <div className='w-2/5 flex flex-col text-left'>
                             <h1 className='text-white font-custom-font font-bold md:text-xl sm:text-xs'>Pensil</h1>
@@ -78,8 +78,8 @@ export default function Toko() {
                         </div>
                     </div>
                     <div className='flex items-center sm:w-50% md:w-full p-4 mt-4 mb-4 bg-custom-coral rounded-md shadow-click md:mx-2%'>
-                        <div  className='sm:w-12 md:w-24 sm:mr-4 md:mr-5 sm:ml-0 md:ml-5' >
-                            <img src="/icon_tugas.png" alt="icon" />
+                        <div  className='w-12 sm:mr-4 md:mr-5 sm:ml-0 md:ml-5' >
+                            <img src="https://images2.imgbox.com/91/00/PC0Y5iyA_o.png" alt="icon" />
                         </div>
                         <div className='w-2/5 flex flex-col text-left'>
                             <h1 className='text-white font-custom-font font-bold md:text-xl sm:text-xs'>Buku</h1>

@@ -19,7 +19,7 @@ export default function Profil() {
                 {/* Card continer */}
                 <div className=' w-full flex flex-wrap'>
                     <div className='w-full flex flex-col items-center justify-center mt-3'>
-                        <img className='object-center' src="/icon_profil.png" alt="icon" />
+                        <img className='object-center' src="https://thumbs2.imgbox.com/f7/02/pCjwRNJy_t.png" alt="icon" />
                         <h1 className='font-custom-font font-bold text-2xl mt-3'>Chandra Bayu Aji</h1>
                         <h1 className='font-custom-font text-lg mt-3'>Kelas : 3A</h1>
                     </div>
