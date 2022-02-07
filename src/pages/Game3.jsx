@@ -411,14 +411,14 @@ class Game3 extends Component {
                                     leaveFrom="opacity-100 scale-100"
                                     leaveTo="opacity-0 scale-95"
                                 >
-                                    <div className="inline-block w-full max-w-sm my-8 overflow-hidden text-left align-middle transition-all transform bg-custom-secondary shadow-xl rounded-2xl py-10">
-                                        <Dialog.Title as="h3" className="text-lg font-custom-font font-medium leading-6 text-white text-center">
+                                    <div className="bg-white inline-block w-full max-w-sm my-8 overflow-hidden text-left align-middle transition-all transform bg-custom-secondary shadow-xl rounded-2xl py-10">
+                                        <Dialog.Title as="h3" className="text-lg font-custom-font font-medium leading-6 text-center">
                                             Score Game
                                         </Dialog.Title>
-                                        <div className="mt-4 flex justify-between WORDS-center">
-                                            <img src="/ilustrasi_modal1.svg" alt="icon" />
-                                            <h2 className='text-white text-6xl p-4 bg-custom-dark rounded-full'>{(~~(100 / Object.keys(this.state.data).length) * this.state.score)}</h2>
-                                            <img src="/ilustrasi_modal2.svg" alt="icon" />
+                                        <div className="mt-4 flex justify-between IMAGES-center">
+                                            <img className="ml-2" src="https://images2.imgbox.com/93/b8/Prt4kmtc_o.png" alt="icon" />
+                                            <h2 className='text-6xl p-2 bg-white rounded-full'>{(~~(100 / Object.keys(this.state.data).length) * this.state.score + 1)}</h2>
+                                            <img className="mr-2" src="https://images2.imgbox.com/52/c9/bdbSBP7b_o.png" alt="icon" />
                                         </div>
                                     </div>
                                 </Transition.Child>
