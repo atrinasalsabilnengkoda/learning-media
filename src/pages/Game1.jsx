@@ -162,38 +162,38 @@ class Game1 extends Component {
                             <h1 className='text-white mb-2'>1. Lengkapi kotak dibawah dengan dengan gambar yang sesuai!</h1>
                             <div as='Content' className='flex justify-center'>
                                 {Object.keys(this.state.data).map((list, i) => (
-                                <div className='w-31% flex flex-col items-center m-2'>
-                                    <Droppable key={list} droppableId={list}>
-                                        {(provided, snapshot) => (
-                                            <div as='Container' className={`w-full min-h-custom-min-height m-2 bg-white p-2 rounded flex justify-center border-2 border-dashed border-black`}
-                                                ref={provided.innerRef}>
-                                                {this.state.data[list].length
-                                                    ? this.state.data[list].map(
-                                                        (item, index) => (
-                                                            <Draggable
-                                                                key={item.id}
-                                                                draggableId={item.id}
-                                                                index={index}>
-                                                                {(provided, snapshot) => (
-                                                                    <img ref={provided.innerRef}
-                                                                        {...provided.draggableProps}
-                                                                        {...provided.dragHandleProps}
-                                                                        src={item.content}
-                                                                        alt={item.gambar}
-                                                                        className='w-1/2 h-auto select-none p-2 mb-2 rounded'
-                                                                    />
-                                                                )}
-                                                            </Draggable>
-                                                        )) : !provided.placeholder && (
-                                                            ''
-                                                        )}
-                                                {provided.placeholder}
-                                            </div>
-                                        )}
-                                    </Droppable>
-                                    {/* <h1 className='max-w-fit font-medium text-2xl bg-white p-2 mb-2 rounded border-2 border-black'>{list}</h1> */}
-                                    <img className="h-1/2 w-1/2" src={`/mudrofat/${list}.png`} alt="" />
-                                </div>
+                                    <div key={i} className='w-31% flex flex-col items-center m-2'>
+                                        <Droppable key={list} droppableId={list}>
+                                            {(provided, snapshot) => (
+                                                <div as='Container' className={`w-full min-h-custom-min-height m-2 bg-white p-2 rounded flex justify-center border-2 border-dashed border-black`}
+                                                    ref={provided.innerRef}>
+                                                    {this.state.data[list].length
+                                                        ? this.state.data[list].map(
+                                                            (item, index) => (
+                                                                <Draggable
+                                                                    key={item.id}
+                                                                    draggableId={item.id}
+                                                                    index={index}>
+                                                                    {(provided, snapshot) => (
+                                                                        <img ref={provided.innerRef}
+                                                                            {...provided.draggableProps}
+                                                                            {...provided.dragHandleProps}
+                                                                            src={item.content}
+                                                                            alt={item.gambar}
+                                                                            className='w-1/2 h-auto select-none p-2 mb-2 rounded'
+                                                                        />
+                                                                    )}
+                                                                </Draggable>
+                                                            )) : !provided.placeholder && (
+                                                                ''
+                                                            )}
+                                                    {provided.placeholder}
+                                                </div>
+                                            )}
+                                        </Droppable>
+                                        {/* <h1 className='max-w-fit font-medium text-2xl bg-white p-2 mb-2 rounded border-2 border-black'>{list}</h1> */}
+                                        <img className="h-1/2 w-1/2" src={`/mudrofat/${list}.png`} alt="" />
+                                    </div>
                                 ))}
                             </div>
                             <Droppable droppableId="IMAGES" isDropDisabled={true}>
@@ -310,7 +310,7 @@ class Game1 extends Component {
                     <h1 className='text-white'>1. Lengkapi kotak dibawah dengan dengan gambar yang sesuai!</h1>
                     <div as='Content' className='flex justify-center'>
                         {Object.keys(this.state.data).map((list, i) => (
-                            <div className='w-31% flex flex-col items-center m-2'>
+                            <div key={i} className='w-31% flex flex-col items-center m-2'>
                                 <Droppable key={list} droppableId={list}>
                                     {(provided, snapshot) => (
                                         <div as='Container' className={`w-full min-h-custom-min-height m-2 bg-white p-2 rounded flex justify-center border-2 border-dashed border-black`}

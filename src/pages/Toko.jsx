@@ -9,7 +9,7 @@ export default function Toko() {
     return (
         <div className='bg-violet-500 min-h-screen flex flex-col items-center'>
             <div className='min-w-full flex justify-start p-4'>
-                <button onClick={() => navigate('/')}>
+                <button onClick={() => navigate('/dashboard')}>
                     <ChevronLeftIcon className='w-8 h-8 text-white' />
                 </button>
             </div>

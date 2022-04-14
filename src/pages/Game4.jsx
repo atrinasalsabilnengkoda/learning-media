@@ -1,15 +1,17 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { v4 } from 'uuid';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Dialog, Transition } from '@headlessui/react'
 import { isMobile } from 'react-device-detect';
 import DeviceOrientation, { Orientation } from 'react-screen-orientation'
 import Lottie from 'react-lottie';
 import animationData from '../assets/orientation.json'
-import WORDS from '../data/DataKata';
+// import WORDS from '../data/DataKata';
 import { ChevronLeftIcon, HomeIcon, PlayIcon } from '@heroicons/react/solid'
-import soal1 from '../assets/Bulutangkis.mp3'
-import { Link } from 'react-router-dom';
+// import soal1 from '../assets/Bulutangkis.mp3'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import AnswerService from '../services/answer.service';
+import AuthService from '../services/auth.service';
+import toast, { Toaster } from 'react-hot-toast';
 
 // lottie option
 const defaultOptions = {
@@ -47,25 +49,70 @@ const move = (source, destination, droppableSource, droppableDestination) => {
     return result;
 };
 
-class Game4 extends Component {
+const Game4 = () => {
 
-    state = {
+    const navigate = useNavigate()
+    const location = useLocation();
+    const [state, setState] = useState({
         data: {
-            'Bulutangkis': [],
+
         },
         modal: false,
         score: 0
-    };
+    });
+    const [dataBank, setDataBank] = useState([]);
+    const [btnDisabled, setBtnDisabled] = useState(false);
+    const [audio, setAudio] = useState('');
 
-    componentDidMount() {
-        console.log(this.state);
-    }
+    useEffect(() => {
+        if (location.state) {
+            setState(prev => ({
+                ...prev,
+                data: location.state.data.data_soal,
+            }));
+            setDataBank(location.state.data.data_bank);
+            setAudio(location.state.data.audio)
+        }
+    }, [location])
 
-    componentDidUpdate() {
-        console.log(this.state);
-    }
+    useEffect(() => {
+        const user = AuthService.getCurrentUser();
 
-    onDragEnd = (result) => {
+        if (user) {
+            AnswerService.getAnswerById({ id_user: user.id_user, id_question: 'A' + location.state.question_number })
+                .then(res => {
+
+                    console.log(res);
+                    if (res.data.success) {
+                        const answer = JSON.parse(res.data.data.the_answer);
+                        setState(prev => ({
+                            ...prev,
+                            data: {
+                                ...answer
+                            }
+                        }));
+
+                        setBtnDisabled(true);
+                    }
+                }, (error) => {
+                    console.log("Private page", error.response);
+                    // Invalid token
+                    if (error.response && error.response.status === 401) {
+                        AuthService.logout();
+                        navigate("/login");
+                        window.location.reload();
+                    }
+                })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location])
+
+    useEffect(() => {
+        console.log(audio);
+    }, [audio])
+
+
+    const onDragEnd = (result) => {
         const { source, destination } = result;
 
         // dropped outside the list
@@ -78,13 +125,13 @@ class Game4 extends Component {
                 break;
             case 'WORDS':
                 console.log('copy');
-                this.setState(prev => ({
+                setState(prev => ({
                     ...prev,
                     data: {
                         ...prev.data,
                         [destination.droppableId]: copy(
-                            WORDS,
-                            this.state.data[destination.droppableId],
+                            dataBank,
+                            state.data[destination.droppableId],
                             source,
                             destination
                         )
@@ -93,13 +140,13 @@ class Game4 extends Component {
                 break;
             default:
                 console.log('move');
-                this.setState(prev => ({
+                setState(prev => ({
                     ...prev,
                     data: {
                         ...prev.data,
                         ...move(
-                            this.state.data[source.droppableId],
-                            this.state.data[destination.droppableId],
+                            state.data[source.droppableId],
+                            state.data[destination.droppableId],
                             source,
                             destination
                         )
@@ -111,44 +158,44 @@ class Game4 extends Component {
     };
 
     // hapus digit di soal
-    digitsBeGone(str) {
+    function digitsBeGone(str) {
         return str.match(/\D/g).join('')
     }
 
-    openModal(score) {
-        this.setState(prev => ({
-            ...prev,
-            modal: true,
-            score: score
-        }))
+    function playAudio() {
+        new Audio(audio).play()
     }
 
-    closeModal() {
-        this.setState(prev => ({
-            ...prev,
-            modal: false
-        }))
-    }
+    async function checkAnswer(data) {
+        const user = AuthService.getCurrentUser();
 
-    playAudio() {
-        new Audio(soal1).play()
-    }
+        if (state.data[Object.keys(data)[0]].length) {
+            let arr = await Object.keys(data).filter((item, i) => data[item][0].kata === digitsBeGone(item))
 
-    async checkAnswer(state) {
-        let arr = await Object.keys(state).filter((item, i) => state[item][0].kata === this.digitsBeGone(item))
-
-        if (arr > 0) {
-            this.openModal(arr.length)
+            AnswerService.createAnswer({ id_user: user.id_user, id_question: 'A' + location.state.question_number, the_answer: JSON.stringify(data), grade: arr.length })
+                .then(res => {
+                    console.log(res);
+                    toast.success('data berhasil disimpan', { position: 'bottom-center' })
+                }, (error) => {
+                    console.log("Private page", error.response);
+                    // Invalid token
+                    if (error.response && error.response.status === 401) {
+                        AuthService.logout();
+                        navigate("/login");
+                        window.location.reload();
+                    }
+                })
         } else {
-            this.openModal(arr.length)
+            toast.error('Harap isi jawaban', { position: 'bottom-center' })
         }
     }
 
-    render() {
-        return isMobile ? (
+    return isMobile ? (
+        <>
+            <Toaster />
             <DeviceOrientation lockOrientation={'landscape'}>
                 <Orientation orientation='landscape' alwaysRender={false}>
-                    <DragDropContext onDragEnd={this.onDragEnd}>
+                    <DragDropContext onDragEnd={onDragEnd}>
                         <div className='bg-violet-500 min-h-screen px-4 md:px-8 xl:px-28 pt-4 p-4'>
                             <div className=' flex justify-between mb-4'>
                                 <Link to='/tugas'>
@@ -156,23 +203,23 @@ class Game4 extends Component {
                                         <ChevronLeftIcon className='w-8 h-8 text-white' />
                                     </button>
                                 </Link>
-                                <Link to='/'>
+                                <Link to='/dashboard'>
                                     <button >
                                         <HomeIcon className='w-8 h-8 text-white' />
                                     </button>
                                 </Link>
                             </div>
                             <h1 className='text-white'>2. Dengarkan audio berikut lalu cocokan jawabanya</h1>
-                            <button onClick={this.playAudio}><PlayIcon className='w-10 h-10 text-white' /></button>
+                            <button onClick={playAudio}><PlayIcon className='w-10 h-10 text-white' /></button>
                             <div className='flex'>
                                 <div as='Content' className='w-70% flex justify-center'>
-                                    {Object.keys(this.state.data).map((list, i) => (
+                                    {Object.keys(state.data).map((list, i) => (
                                         <Droppable key={list} droppableId={list}>
                                             {(provided, snapshot) => (
                                                 <div as='Container' className={`w-full min-h-custom-min-height max-h-60 m-2 bg-white p-2 rounded flex justify-center border-2 border-dashed border-black`}
                                                     ref={provided.innerRef}>
-                                                    {this.state.data[list].length
-                                                        ? this.state.data[list].map(
+                                                    {state.data[list].length
+                                                        ? state.data[list].map(
                                                             (item, index) => (
                                                                 <Draggable
                                                                     key={item.id}
@@ -201,7 +248,7 @@ class Game4 extends Component {
                                     {(provided, snapshot) => (
                                         <div as='bank' className={`w-30% bg-custom-text p-2 my-4 rounded shadow-custom-shadow-gray flex flex-wrap`}
                                             ref={provided.innerRef}>
-                                            {WORDS.map((item, index) => (
+                                            {dataBank.map((item, index) => (
                                                 <Draggable
                                                     key={item.id}
                                                     draggableId={item.id}
@@ -227,62 +274,10 @@ class Game4 extends Component {
                                 </Droppable>
                             </div>
                             <div className='w-full flex mt-4'>
-                                <button className='bg-custom-coral text-white px-3 py-1 rounded-md shadow-click' onClick={() => this.checkAnswer(this.state.data)}>
+                                <button disabled={btnDisabled} className='bg-custom-coral text-white px-3 py-1 rounded-md shadow-click' onClick={() => checkAnswer(state.data)}>
                                     Check
                                 </button>
                             </div>
-
-                            {/* modal nilai */}
-                            <Transition appear show={this.state.modal} as={Fragment}>
-                                <Dialog
-                                    as="div"
-                                    className="fixed inset-0 z-10 overflow-y-auto"
-                                    onClose={() => this.closeModal()}
-                                >
-                                    <div className="min-h-screen px-4 text-center">
-                                        <Transition.Child
-                                            as={Fragment}
-                                            enter="ease-out duration-300"
-                                            enterFrom="opacity-0"
-                                            enterTo="opacity-100"
-                                            leave="ease-in duration-200"
-                                            leaveFrom="opacity-100"
-                                            leaveTo="opacity-0"
-                                        >
-                                            <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
-                                        </Transition.Child>
-
-                                        {/* This element is to trick the browser into centering the modal contents. */}
-                                        <span
-                                            className="inline-block h-screen align-middle"
-                                            aria-hidden="true"
-                                        >
-                                            &#8203;
-                                        </span>
-                                        <Transition.Child
-                                            as={Fragment}
-                                            enter="ease-out duration-300"
-                                            enterFrom="opacity-0 scale-95"
-                                            enterTo="opacity-100 scale-100"
-                                            leave="ease-in duration-200"
-                                            leaveFrom="opacity-100 scale-100"
-                                            leaveTo="opacity-0 scale-95"
-                                        >
-                                            
-                                            <div className="bg-white inline-block w-full max-w-sm my-8 overflow-hidden text-left align-middle transition-all transform bg-custom-secondary shadow-xl rounded-2xl py-10">
-                                                <Dialog.Title as="h3" className="text-lg font-custom-font font-medium leading-6 text-center">
-                                                    Score Game
-                                                </Dialog.Title>
-                                                <div className="mt-4 flex justify-between IMAGES-center">
-                                                    <img className="ml-2" src="https://images2.imgbox.com/93/b8/Prt4kmtc_o.png" alt="icon" />
-                                                    <h2 className='text-6xl p-2 bg-white rounded-full'>{(~~(100 / Object.keys(this.state.data).length) * this.state.score)}</h2>
-                                                    <img className="mr-2" src="https://images2.imgbox.com/52/c9/bdbSBP7b_o.png" alt="icon" />
-                                                </div>
-                                            </div>
-                                        </Transition.Child>
-                                    </div>
-                                </Dialog>
-                            </Transition>
 
                         </div>
                     </DragDropContext >
@@ -294,9 +289,11 @@ class Game4 extends Component {
                     </div>
                 </Orientation>
             </DeviceOrientation>
-
-        ) : (
-            <DragDropContext onDragEnd={this.onDragEnd}>
+        </>
+    ) : (
+        <>
+            <Toaster />
+            <DragDropContext onDragEnd={onDragEnd}>
                 <div className='bg-violet-500 min-h-screen px-4 md:px-8 xl:px-28 pt-4'>
                     <div className=' flex justify-between mb-4'>
                         <Link to='/tugas'>
@@ -311,16 +308,16 @@ class Game4 extends Component {
                         </Link>
                     </div>
                     <h1 className='text-white'>2. Dengarkan audio berikut lalu cocokan jawabanya</h1>
-                    <button onClick={this.playAudio}><PlayIcon className='w-10 h-10 text-white' /></button>
+                    <button onClick={playAudio}><PlayIcon className='w-10 h-10 text-white' /></button>
                     <div className='flex'>
                         <div as='Content' className='w-70% flex justify-center'>
-                            {Object.keys(this.state.data).map((list, i) => (
+                            {Object.keys(state.data).map((list, i) => (
                                 <Droppable key={list} droppableId={list}>
                                     {(provided, snapshot) => (
                                         <div as='Container' className={`w-full min-h-custom-min-height max-h-60 m-2 bg-white p-2 rounded flex justify-center border-2 border-dashed border-black`}
                                             ref={provided.innerRef}>
-                                            {this.state.data[list].length
-                                                ? this.state.data[list].map(
+                                            {state.data[list].length
+                                                ? state.data[list].map(
                                                     (item, index) => (
                                                         <Draggable
                                                             key={item.id}
@@ -349,7 +346,7 @@ class Game4 extends Component {
                             {(provided, snapshot) => (
                                 <div as='bank' className={`w-30% bg-custom-text p-2 my-4 rounded shadow-custom-shadow-gray flex flex-wrap`}
                                     ref={provided.innerRef}>
-                                    {WORDS.map((item, index) => (
+                                    {dataBank.map((item, index) => (
                                         <Draggable
                                             key={item.id}
                                             draggableId={item.id}
@@ -375,66 +372,15 @@ class Game4 extends Component {
                         </Droppable>
                     </div>
                     <div className='w-full flex mt-4'>
-                        <button className='bg-custom-coral text-white px-3 py-1 rounded-md shadow-click' onClick={() => this.checkAnswer(this.state.data)}>
+                        <button disabled={btnDisabled} className='bg-custom-coral text-white px-3 py-1 rounded-md shadow-click' onClick={() => checkAnswer(state.data)}>
                             Check
                         </button>
                     </div>
-
-                    <Transition appear show={this.state.modal} as={Fragment}>
-                        <Dialog
-                            as="div"
-                            className="fixed inset-0 z-10 overflow-y-auto"
-                            onClose={() => this.closeModal()}
-                        >
-                            <div className="min-h-screen px-4 text-center">
-                                <Transition.Child
-                                    as={Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0"
-                                    enterTo="opacity-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100"
-                                    leaveTo="opacity-0"
-                                >
-                                    <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
-                                </Transition.Child>
-
-                                {/* This element is to trick the browser into centering the modal contents. */}
-                                <span
-                                    className="inline-block h-screen align-middle"
-                                    aria-hidden="true"
-                                >
-                                    &#8203;
-                                </span>
-                                <Transition.Child
-                                    as={Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0 scale-95"
-                                    enterTo="opacity-100 scale-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100 scale-100"
-                                    leaveTo="opacity-0 scale-95"
-                                >
-                                    
-                                    <div className="bg-white inline-block w-full max-w-sm my-8 overflow-hidden text-left align-middle transition-all transform bg-custom-secondary shadow-xl rounded-2xl py-10">
-                                        <Dialog.Title as="h3" className="text-lg font-custom-font font-medium leading-6 text-center">
-                                            Score Game
-                                        </Dialog.Title>
-                                        <div className="mt-4 flex justify-between IMAGES-center">
-                                            <img className="ml-2" src="https://images2.imgbox.com/93/b8/Prt4kmtc_o.png" alt="icon" />
-                                            <h2 className='text-6xl p-2 bg-white rounded-full'>{(~~(100 / Object.keys(this.state.data).length) * this.state.score)}</h2>
-                                            <img className="mr-2" src="https://images2.imgbox.com/52/c9/bdbSBP7b_o.png" alt="icon" />
-                                        </div>
-                                    </div>
-                                </Transition.Child>
-                            </div>
-                        </Dialog>
-                    </Transition>
-
                 </div>
             </DragDropContext >
-        );
-    }
+        </>
+    );
 }
+
 
 export default Game4;
