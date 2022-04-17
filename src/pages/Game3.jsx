@@ -198,7 +198,7 @@ const Game3 = () => {
                                     </button>
                                 </Link>
                             </div>
-                            <h1 className='text-white mb-2'>1. Lengkapi kotak dibawah dengan dengan gambar yang sesuai!</h1>
+                            <h1 className='text-white mb-2'>Lengkapi kotak dibawah dengan dengan gambar yang sesuai!</h1>
                             <div as='Content' className='flex justify-center'>
                                 {Object.keys(state.data).map((list, i) => (
                                     <div key={i} className='w-31% flex flex-col items-center m-2'>
@@ -296,7 +296,7 @@ const Game3 = () => {
                             </button>
                         </Link>
                     </div>
-                    <h1 className='text-white'>1. Lengkapi kotak dibawah dengan dengan gambar yang sesuai!</h1>
+                    <h1 className='text-white'>Lengkapi kotak dibawah dengan dengan gambar yang sesuai!</h1>
                     <div as='Content' className='flex justify-center'>
                         {Object.keys(state.data).map((list, i) => (
                             <div key={i} className='w-31% flex flex-col items-center m-2'>

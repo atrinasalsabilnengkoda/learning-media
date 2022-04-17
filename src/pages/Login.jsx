@@ -25,8 +25,8 @@ function Login() {
 
     return (
         <>
-            <div className='w-full h-screen flex justify-center items-center'>
-                <div className='w-50% bg-violet-500 p-4 rounded'>
+            <div className='w-full h-screen bg-violet-500 flex justify-center items-center'>
+                <div className='w-50% bg-custom-coral p-4 rounded'>
                     <div className='flex flex-col mb-4'>
                         <span className='text-white'>Username</span>
                         <input type='text' className='p-2 rounded' onChange={(e) => setUsername(e.target.value)} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeftIcon, SearchIcon } from '@heroicons/react/solid'
+import { ChevronLeftIcon } from '@heroicons/react/solid'
 import { useNavigate } from 'react-router-dom';
 import DataTugas1 from '../data/DataTugas1'
 import DataTugas2 from '../data/DataTugas2'
@@ -51,8 +51,8 @@ export default function Tugas() {
                     <ChevronLeftIcon className='w-8 h-8 text-white' />
                 </button>
             </div>
-            <h1 className='text-white text-xl font-medium'>Tugas</h1>
-            <div className="w-fit mt-4 relative text-gray-600">
+            <h1 className='text-white text-xl font-medium mb-4'>Tugas</h1>
+            {/* <div className="w-fit mt-4 relative text-gray-600">
                 <input
                     className="border-2 border-gray-300 bg-white w-full h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
                     type="search"
@@ -64,13 +64,13 @@ export default function Tugas() {
                     <SearchIcon className="text-gray-600 h-4 w-4 fill-current" >
                     </SearchIcon>
                 </button>
-            </div>
+            </div> */}
 
 
-            <div className='w-90% bg-white mt-4 p-4 rounded-lg'>
+            <div className='w-90% bg-white mt-4 p-4 mb-4 rounded-lg'>
                 <div className='flex justify-between'>
-                    <p className='max-w-fit text-white text-sm font-medium bg-custom-blue p-2 mb-4 rounded'>Kode : SKZ8</p>
-                    <p className='max-w-fit text-white text-sm font-medium bg-custom-text p-2 mb-4 rounded'>{hitungNilai('B')}</p>
+                    <p className='max-w-fit text-white text-sm font-medium bg-custom-blue p-2 mb-4 rounded'>Kode : B6-B</p>
+                    <p className='max-w-fit text-white text-sm font-medium bg-yellow-400 p-2 mb-4 rounded'>{hitungNilai('B')}</p>
                 </div>
                 {/* Card continer */}
                 <div className=' w-full flex flex-wrap'>
@@ -83,9 +83,10 @@ export default function Tugas() {
                     </button> */}
                     {DataTugas1.map((element, i) => (
                         <button key={i} as='card' className='flex items-center w-full p-4 mb-4 bg-custom-coral rounded-md shadow-click md:w-48% md:mx-1% ' onClick={() => redirectWithData('/game3', element, i)}>
-                            <img className="w-16" src="https://images2.imgbox.com/15/d8/Y9j7UAWi_o.png" alt="icon" />
+                            {/* <img className="w-16" src="https://images2.imgbox.com/15/d8/Y9j7UAWi_o.png" alt="icon" /> */}
+                            <img className="w-16" src="Membaca.png" alt="icon" />
                             <div className='flex flex-col ml-4 text-left'>
-                                <h2 className='text-white font-custom-font font-medium text-lg'>3-Membaca {i + 1}</h2>
+                                <h2 className='text-white font-custom-font font-medium text-lg'>6-Membaca {i + 1}</h2>
                                 <p className='text-white font-custom-font text-xs mt-2'>Game ini akan mengajarkan kamu mencocokan gambar dengan kata dalam bahasa Arab yang sesuai melalui puzzle</p>
                             </div>
                         </button>
@@ -109,8 +110,8 @@ export default function Tugas() {
 
             <div className='w-90% bg-white mt-4 p-4 rounded-lg'>
                 <div className='flex justify-between'>
-                    <p className='max-w-fit text-white text-sm font-medium bg-custom-blue p-2 mb-4 rounded'>Kode : GND1</p>
-                    <p className='max-w-fit text-white text-sm font-medium bg-custom-text p-2 mb-4 rounded'>{hitungNilai('A')}</p>
+                    <p className='max-w-fit text-white text-sm font-medium bg-custom-blue p-2 mb-4 rounded'>Kode : B6-A</p>
+                    <p className='max-w-fit text-white text-sm font-medium bg-yellow-400 p-2 mb-4 rounded'>{hitungNilai('A')}</p>
                 </div>
                 {/* Card continer */}
                 <div className=' w-full flex flex-wrap'>
@@ -123,9 +124,10 @@ export default function Tugas() {
                     </button> */}
                     {DataTugas2.map((element, i) => (
                         <button key={i} as='card' className='flex items-center w-full p-4 mb-4 bg-custom-coral rounded-md shadow-click md:w-48% md:mx-1% ' onClick={() => redirectWithData('/game4', element, i)}>
-                            <img className="w-16" src="https://images2.imgbox.com/09/1e/5vFfSv6l_o.png" alt="icon" />
+                            {/* <img className="w-16" src="https://images2.imgbox.com/09/1e/5vFfSv6l_o.png" alt="icon" /> */}
+                            <img className="w-16" src="Mendengar.png" alt="icon" />
                             <div className='flex flex-col ml-4 text-left'>
-                                <h2 className='text-white font-custom-font font-medium text-lg'>4-Mendengar 01</h2>
+                                <h2 className='text-white font-custom-font font-medium text-lg'>6-Mendengar {i + 1}</h2>
                                 <p className='text-white font-custom-font text-xs mt-2'>Game ini akan mengajarkan kamu mencocokan kata dalam bahasa Arab melalui puzzle</p>
                             </div>
                         </button>

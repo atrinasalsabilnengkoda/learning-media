@@ -209,7 +209,7 @@ const Game4 = () => {
                                     </button>
                                 </Link>
                             </div>
-                            <h1 className='text-white'>2. Dengarkan audio berikut lalu cocokan jawabanya</h1>
+                            <h1 className='text-white'>Dengarkan audio berikut lalu cocokan jawabanya</h1>
                             <button onClick={playAudio}><PlayIcon className='w-10 h-10 text-white' /></button>
                             <div className='flex'>
                                 <div as='Content' className='w-70% flex justify-center'>
@@ -307,7 +307,7 @@ const Game4 = () => {
                             </button>
                         </Link>
                     </div>
-                    <h1 className='text-white'>2. Dengarkan audio berikut lalu cocokan jawabanya</h1>
+                    <h1 className='text-white'>Dengarkan audio berikut lalu cocokan jawabanya</h1>
                     <button onClick={playAudio}><PlayIcon className='w-10 h-10 text-white' /></button>
                     <div className='flex'>
                         <div as='Content' className='w-70% flex justify-center'>

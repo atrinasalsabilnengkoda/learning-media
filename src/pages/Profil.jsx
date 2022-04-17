@@ -45,14 +45,15 @@ export default function Profil() {
                 {/* Card continer */}
                 <div className=' w-full flex flex-wrap'>
                     <div className='w-full flex flex-col items-center justify-center mt-3'>
-                        <img className='object-center' src="https://thumbs2.imgbox.com/f7/02/pCjwRNJy_t.png" alt="icon" />
-                        <h1 className='font-custom-font font-bold text-2xl mt-3'>{data && data.nama}</h1>
-                        <h1 className='font-custom-font text-lg mt-3'>Kelas : 3A</h1>
+                        {/* <img className='object-center' src="https://thumbs2.imgbox.com/f7/02/pCjwRNJy_t.png" alt="icon" /> */}
+                        <img className='object-center' src={data && data.image} alt="icon" />
+                        <h1 className='font-custom-font font-bold text-2xl mt-3'>{data && data.name}</h1>
+                        <h1 className='font-custom-font text-lg mt-3'>Kelas : {data && data.class}</h1>
                     </div>
                     <div className='flex items-center w-full p-4 mt-4 mb-4 bg-custom-coral rounded-md shadow-click md:mx-2%'>
                         <div className=' flex flex-col text-left'>
-                            <h1 className='text-white font-custom-font font-bold text-lg'>Total Poin : 200</h1>
-                            <h2 className='text-white font-custom-font text-lg mt-2'>Total Game : 5</h2>
+                            <h1 className='text-white font-custom-font font-bold text-lg'>Total Poin : {data && data.poin}</h1>
+                            <h2 className='text-white font-custom-font text-lg mt-2'>Total Game : 0</h2>
                         </div>
                     </div>
                 </div>
