@@ -176,6 +176,7 @@ const Game4 = () => {
                 .then(res => {
                     console.log(res);
                     toast.success('data berhasil disimpan', { position: 'bottom-center' })
+                    window.location.reload();
                 }, (error) => {
                     console.log("Private page", error.response);
                     // Invalid token
